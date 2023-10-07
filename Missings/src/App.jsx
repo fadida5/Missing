@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+import { Button } from "@mui/material";
 
 const columns = [
 	{ field: "id", headerName: "ID", width: 90 },
@@ -49,6 +50,10 @@ const rows = [
 function App() {
 	return (
 		<>
+			<Button style={{ marginBottom: "2%" }} variant="contained">
+				check
+			</Button>
+			<></>
 			<div style={{ textAlign: "center", color: "white" }}>
 				<Box sx={{ height: 400, width: "100%" }}>
 					<DataGrid
