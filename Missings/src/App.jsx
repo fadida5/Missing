@@ -1,12 +1,13 @@
 import AddIcon from "@mui/icons-material/Add";
-import { IconButton } from "@mui/material";
+import { Dialog, DialogContent, IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import MissingFromC from "./MissingFromC";
 
 const columns = [
-  { field: "id", headerName: "מספר סידורי", width: 90 },
+  //   { field: "id", headerName: "מספר סידורי", width: 90 },
   {
     field: "name",
     headerName: "שם פרטי",
@@ -50,6 +51,7 @@ const columns = [
 
 function App() {
   const [missingFromDB, setMissingFromDB] = useState([]);
+  const [toAddFile, setToAddFile] = useState(false);
 
   useEffect(() => {
     axios
@@ -63,8 +65,28 @@ function App() {
         setMissingFromDB([]);
       });
   }, []);
+  const addFile = () => (
+    <Dialog
+      px={5}
+      open={toAddFile}
+      onClose={() => setToAddFile(false)}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <Box
+        variant="gradient"
+        bgColor="mekatnar"
+        coloredShadow="mekatnar"
+        borderRadius="l"
+      >
+        <DialogContent>
+          <MissingFromC />
+        </DialogContent>
+      </Box>
+    </Dialog>
+  );
   const rows = missingFromDB.map((m) => ({
-    id: m.id,
+    // id: m.id,
     name: m.name,
     family_name: m.family_name,
     found: m.found,
@@ -72,28 +94,36 @@ function App() {
     evacuated: m.evacuated,
     id_last: m.id_last,
   }));
-  return (
+  const table = () => (
     <>
       <div
         style={{
           textAlign: "center",
           color: "white",
-          backgroundColor: "green",
+          backgroundColor: "white",
         }}
       >
-        <h1>טבלת נעדרים</h1>
+        <h1
+          style={{
+            textAlign: "center",
+            color: "black",
+            backgroundColor: "white",
+          }}
+        >
+          טבלת נעדרים
+        </h1>
         <div
           style={{
             textAlign: "center",
             color: "white",
-            backgroundColor: "red",
+            backgroundColor: "white",
           }}
         >
           <Box sx={{ textAlign: "left", height: "3rem", width: "100%" }}>
             <IconButton
               color="primary"
               aria-label="הוסף נעדר"
-              onClick={() => window.alert("dfdfd")}
+              onClick={() => setToAddFile(true)}
             >
               <AddIcon />
             </IconButton>
@@ -117,6 +147,12 @@ function App() {
           </Box>
         </div>
       </div>
+    </>
+  );
+  return (
+    <>
+      {table()}
+      {addFile()}
     </>
   );
 }
