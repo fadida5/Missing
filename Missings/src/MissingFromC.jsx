@@ -44,30 +44,11 @@ function MissingFromC() {
       }}
       className="App"
     >
-      <Typography variant="h5">טופס נעדר חדש</Typography>
+      <Typography variant="h5">טופס סטטוס נעדר</Typography>
       <br />
       <form>
         <TextField
-          value={data.name}
-          style={{ width: "200px", margin: "5px" }}
-          type="text"
-          label="שם פרטי"
-          variant="outlined"
-          name="name"
-          onChange={handleChange}
-        />
-        <br />
-        <TextField
-          value={data.family_name}
-          style={{ width: "200px", margin: "5px" }}
-          type="text"
-          label="שם משפחה"
-          name="family_name"
-          onChange={handleChange}
-          variant="outlined"
-        />
-        <br />
-        <TextField
+          required
           style={{ width: "200px", margin: "5px" }}
           value={data.found}
           type="text"
@@ -81,6 +62,28 @@ function MissingFromC() {
           <MenuItem value={false}>נעדר</MenuItem>
           <MenuItem value={true}>נמצא</MenuItem>
         </TextField>
+        <br />
+        <TextField
+          required
+          value={data.name}
+          style={{ width: "200px", margin: "5px" }}
+          type="text"
+          label="שם פרטי"
+          variant="outlined"
+          name="name"
+          onChange={handleChange}
+        />
+        <br />
+        <TextField
+          required
+          value={data.family_name}
+          style={{ width: "200px", margin: "5px" }}
+          type="text"
+          label="שם משפחה"
+          name="family_name"
+          onChange={handleChange}
+          variant="outlined"
+        />
         <br />
         <TextField
           value={data.whereabouts}
@@ -119,7 +122,7 @@ function MissingFromC() {
 
         <br />
         <br />
-        <Button variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary">
           שלח
         </Button>
       </form>

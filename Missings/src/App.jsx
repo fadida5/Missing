@@ -12,13 +12,13 @@ const columns = [
     field: "name",
     headerName: "שם פרטי",
     width: 150,
-    editable: true,
+    // editable: true,
   },
   {
     field: "family_name",
     headerName: "שם משפחה",
     width: 150,
-    editable: true,
+    // editable: true,
   },
   {
     field: "found",
@@ -45,7 +45,7 @@ const columns = [
     headerName: " 4 ספרות אחרונות של תז",
     // type: "number",
     width: 200,
-    editable: true,
+    // editable: true,
   },
 ];
 
