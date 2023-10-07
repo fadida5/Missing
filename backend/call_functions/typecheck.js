@@ -16,7 +16,11 @@ function type(value, type) {
 	} else {
 		// console.log(value);
 		if (value == undefined || typeof value === type) {
-			return value;
+			if (value == false) {
+				return 0;
+			} else {
+				return value;
+			}
 		} else {
 			console.log(value);
 			console.log(type);

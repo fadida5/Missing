@@ -9,8 +9,9 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cors());
 
-const db = "mongodb://127.0.0.1/Missing"; //change!!!
+const db = "mongodb://localhost:27017/Missing"; //change!!!
 
 mongoose
 	.connect(db, {
@@ -26,7 +27,8 @@ const mongo = mongoose.connection;
 // Handle MongoDB connection errors
 mongo.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-app.use(cors());
+const PersonRoutes = require("./routes/person.js");
+app.use("/api", PersonRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

@@ -3,7 +3,6 @@ const { ObjectId } = mongoose.Schema;
 
 const PersonSchema = new mongoose.Schema(
 	{
-		_id: ObjectId,
 		name: { type: String, require: true },
 		family_name: { type: String, require: true },
 		found: { type: Boolean, default: false },
