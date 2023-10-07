@@ -1,74 +1,124 @@
-import { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const columns = [
-	{ field: "id", headerName: "ID", width: 90 },
-	{
-		field: "firstName",
-		headerName: "First name",
-		width: 150,
-		editable: true,
-	},
-	{
-		field: "lastName",
-		headerName: "Last name",
-		width: 150,
-		editable: true,
-	},
-	{
-		field: "age",
-		headerName: "Age",
-		type: "number",
-		width: 110,
-		editable: true,
-	},
-	{
-		field: "fullName",
-		headerName: "Full name",
-		description: "This column has a value getter and is not sortable.",
-		sortable: false,
-		width: 160,
-		valueGetter: (params) =>
-			`${params.row.firstName || ""} ${params.row.lastName || ""}`,
-	},
-];
-
-const rows = [
-	{ id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-	{ id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-	{ id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-	{ id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-	{ id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-	{ id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-	{ id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-	{ id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-	{ id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { field: "id", headerName: "מספר סידורי", width: 90 },
+  {
+    field: "name",
+    headerName: "שם פרטי",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "family_name",
+    headerName: "שם משפחה",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "found",
+    headerName: "נמצא",
+    type: "boolean",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "whereabouts",
+    headerName: "מיקום",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "evacuated",
+    headerName: "חולץ",
+    type: "boolean",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "id_last",
+    headerName: " 4 ספרות אחרונות של תז",
+    // type: "number",
+    width: 200,
+    editable: true,
+  },
 ];
 
 function App() {
-	return (
-		<>
-			<div style={{ textAlign: "center", color: "white" }}>
-				<Box sx={{ height: 400, width: "100%" }}>
-					<DataGrid
-						rows={rows}
-						columns={columns}
-						initialState={{
-							pagination: {
-								paginationModel: {
-									pageSize: 5,
-								},
-							},
-						}}
-						pageSizeOptions={[5]}
-						checkboxSelection
-						disableRowSelectionOnClick
-					/>
-				</Box>
-			</div>
-		</>
-	);
+  const [missingFromDB, setMissingFromDB] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/getAll`)
+      .then((response) => {
+        console.log(response.data);
+        setMissingFromDB(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setMissingFromDB([]);
+      });
+  }, []);
+  const rows = missingFromDB.map((m) => ({
+    id: m.id,
+    name: m.name,
+    family_name: m.family_name,
+    found: m.found,
+    whereabouts: m.whereabouts,
+    evacuated: m.evacuated,
+    id_last: m.id_last,
+  }));
+  return (
+    <>
+      <div
+        style={{
+          textAlign: "center",
+          color: "white",
+          backgroundColor: "green",
+        }}
+      >
+        <h1>טבלת נעדרים</h1>
+        <div
+          style={{
+            textAlign: "center",
+            color: "white",
+            backgroundColor: "red",
+          }}
+        >
+          <Box sx={{ textAlign: "left", height: "3rem", width: "100%" }}>
+            <IconButton
+              color="primary"
+              aria-label="הוסף נעדר"
+              onClick={() => window.alert("dfdfd")}
+            >
+              <AddIcon />
+            </IconButton>
+          </Box>
+          <Box sx={{ height: "15rem", width: "100%" }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              sx={{ "--DataGrid-overlayHeight": "300px" }}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 50,
+                  },
+                },
+              }}
+              pageSizeOptions={[50]}
+              checkboxSelection
+              disableRowSelectionOnClick
+            />
+          </Box>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default App;
