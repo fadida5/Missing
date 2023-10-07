@@ -86,26 +86,26 @@ function App() {
       </Box>
     </Dialog>
   );
-  //   const rows = missingFromDB.map((m) => ({
-  // id: m.id,
-  //     name: m.name,
-  //     family_name: m.family_name,
-  //     found: m.found,
-  //     whereabouts: m.whereabouts,
-  //     evacuated: m.evacuated,
-  //     id_last: m.id_last,
-  //   }));
-  const rows = [
-    {
-      id: 1,
-      name: "ש",
-      family_name: "Jon",
-      found: false,
-      whereabouts: "Snow",
-      evacuated: "Jon",
-      id_last: 35,
-    },
-  ];
+  const rows = missingFromDB.map((m) => ({
+    id: m.id,
+    name: m.name,
+    family_name: m.family_name,
+    found: m.found,
+    whereabouts: m.whereabouts,
+    evacuated: m.evacuated,
+    id_last: m.id_last,
+  }));
+  //   const rows = [
+  //     {
+  //       id: 1,
+  //       name: "ש",
+  //       family_name: "Jon",
+  //       found: false,
+  //       whereabouts: "Snow",
+  //       evacuated: "Jon",
+  //       id_last: 35,
+  //     },
+  //   ];
   const table = () => (
     <>
       <div
