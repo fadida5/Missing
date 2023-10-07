@@ -1,0 +1,10 @@
+/node_modules
+/backend/node_modules
+/Missings/node_modules
+/Missings/build
+/Missings/package-lock.json
+/Missings/.vscode
+/Missings/.eslintcache/Missings/.vscode
+/Missings/.eslintcache
+
+backend/uploads/
